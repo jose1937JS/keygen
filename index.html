@@ -1,1 +1,134 @@
 
+<!--
+  * Comienzo : Sabado o Domingo.
+  * Finalización: Martes 15 de Nov.
+  * Modificaciones: Viernes 18 Nov.
+  * Terminado: Sábado 19 de nov.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <meta name="author" content="Jose Lopez" />
+    <title>KeyGen By Jose Lopez</title>
+    <style>
+        body{height: 100%;font: 1em 'Berlin Sans FB'}
+        h2{text-decoration: underline;text-align: center}
+        section{max-width: 870px; width: 95%;border:1px solid black;margin: auto;height: 410px;background: #F3F3F3; position: absolute; top: 0; right: 0;bottom: 0;left: 0;}
+        #cont{margin: auto; width: 95%;}
+        article{border: 1px solid red;width: 43%;height: 200px; text-align: center;padding: 10px;box-shadow: 3px 3px 10px #5f5f5f, -3px -3px 10px #5f5f5f;float: left ;margin-left: 3%}
+        .span{border: 1px solid black;margin: auto;width: 100%;padding: 5px;letter-spacing: 5px;height: 20px}
+        .span::selection{background-color: orange}
+        #digito{margin: 15px 0px; width: 80px;}
+        #comprobante{border: 1px solid red; box-shadow: none;height: 50px; text-align: center;margin: 30px 0 0 35%;clear: both; width: 250px}
+        /*******  Diseño líquido  ********/
+        @media (max-width: 700px){
+            section{width: 95%;background: #F3F3F3;min-width: 480px; position: relative; height: 680px }
+            #cont{width: 90%;margin: auto}
+            article{width: 80%;margin: 5% 0 0 7%;}
+            #comprobante{width: 70%;margin: 4.5% 0 0 12%;}
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <header>
+            <h2>Generador de Clave</h2>
+        </header>
+        <div id="cont">
+            <article>
+                <p>Clickea el botón para generar una contraseña aleatoria de entre 8 y 24 dígitos</p>
+                <input id="digito" type="number" placeholder='Length pass' /><br>
+                <span id='span' class="span">P45$W0Rd</span><br><br>
+                <input id="boton" type="button" value="Generar" />
+            </article>
+            <article>
+                <p>Presiona el botón y te generará una contraseña aleatoria siguiendo un patrón ya predefinido.</p><br><br>
+                <span class="span">69Jos123_e$f4#</span><br><br>
+                <input id="boton2" type="button" value="Generar" />
+            </article>
+        </div>
+        <article id='comprobante'>
+            <input type="text" id="prueba" placeholder='Comprueba la contraseña' maxlength="14" /><br /><br />
+            <span id='result'></span>
+        </article>
+    </section>
+    <script>
+    addEventListener('load', function(){
+        'use strict'
+        function $(id){return document.getElementById(id)}
+        let generar     = $('boton'),
+            generar2    = $('boton2'),
+            span        = $('span'),
+            pruebaInput = $('prueba'),
+            resultado   = $('result'),
+            comprobante = $('comprobante'),
+            span2       = document.getElementsByTagName('span')[1],
+            body        = document.getElementsByTagName('body')[0],
+            patron      = /^[0-9]{2}[A-Za-z]{3}[0-9]{3}[-|_|*|#|%|@|.|+|\/|\$|!|¡|;|:|,|&|=][a-z][-|_|*|#|%|@|.|+|\/|\$|!|¡|;|:|,|&|=][a-z][0-9][-|_|*|#|%|@|.|+|\/|\$|!|¡|;|:|,|&|=]$/ ,
+            charMM      = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
+            numbers     = ['0','1','2','3','4','5','6','7','8','9'],
+            charEsp     = ['-','_','*','#','%','&','@','.','+','/','$','!','¡',';',':',',','='],
+            caracteres  = charMM.concat(numbers,charEsp);
+
+        generar.onclick=function(){
+            let noDig = $('digito').value,ind,posChar,clave=[];
+
+            if (noDig < 8 )alert('La clave es muy corta');
+            else if(noDig > 24)alert('La clave es demasiado larga');
+            else vector();
+
+            function vector(){
+                for(var i = 0; i < noDig; i++){
+                    ind = Math.ceil(Math.random()*caracteres.length-1);
+                    posChar = caracteres[ind];
+                    clave.push(posChar);
+                }
+            }
+            span.innerHTML = clave.join('');
+        }
+        generar2.onclick=function(){
+            let clave=[],pass1=[],pass2=[],pass3=[],pass4,pass5,pass6;
+            function random(param){
+                return Math.ceil(Math.random()*param -1);
+            }
+
+            for(var i = 0; i < 2; i++){
+                let ind, posChar;
+                posChar = numbers[random(numbers.length)];
+                pass1.push(posChar);
+            }
+            for(var i = 0; i < 3; i++){
+                let ind, posChar;
+                posChar = charMM[random(charMM.length)];
+                pass2.push(posChar);
+            }
+            for(var i = 0; i < 3; i++){
+                let ind, posChar;
+                posChar = numbers[random(numbers.length)];
+                pass3.push(posChar);
+            }
+            pass4 = charEsp[random(charEsp.length)];
+
+            var ind = Math.ceil(Math.random()*25);
+            pass5 = charMM[ind];
+
+            pass6 = numbers[random(numbers.length)];
+
+            span2.innerHTML = pass1.join('')+pass2.join('')+pass3.join('')+pass4+pass5+charEsp[random(charEsp.length)]+charMM[Math.ceil(Math.random()*25)]+pass6+ charEsp[random(charEsp.length)];
+        }
+        pruebaInput.onkeyup=function(){
+            let input = this.value ;
+            if(patron.test(input)){
+                body.style.background = '#1BD01B' ;
+                resultado.innerHTML = 'Contraseña VALIDA' ;
+            }else{
+                body.style.background = 'red' ;
+                resultado.innerHTML = 'Contraseña INVALIDA' ;
+            }
+        }
+    })
+// 12fjU145-t_y0#
+    </script>
+</body>
+</html>
